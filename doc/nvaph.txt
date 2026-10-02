@@ -1,0 +1,83 @@
+*nvaph.txt*  Terminal-native project graph and wiki links
+
+==============================================================================
+CONTENTS                                                  *nvaph-contents*
+
+  1. Introduction ............................................. |nvaph|
+  2. Setup .................................................. |nvaph-setup|
+  3. Commands ............................................... |nvaph-commands|
+  4. Graph keys ............................................. |nvaph-graph-keys|
+  5. Configuration ........................................... |nvaph-configuration|
+  6. Development ............................................ |nvaph-development|
+
+==============================================================================
+1. INTRODUCTION                                                     *nvaph*
+
+Nvaph indexes a project, resolves wikilinks between arbitrary files, and renders
+a force-directed graph inside a Neovim scratch buffer. The renderer uses
+ordinary Unicode text and does not require Kitty graphics, a browser, or a
+nested terminal.
+
+The plugin is independent of obsidian.nvim and has no required runtime
+dependency.
+
+==============================================================================
+2. SETUP                                                       *nvaph-setup*
+
+Nvaph auto-loads when its plugin directory is on 'runtimepath'. No setup call
+is required.
+
+>lua
+    vim.opt.runtimepath:prepend('/Users/quinny/Projects/nvaph')
+<
+Optional configuration is available through require("nvaph").setup(). If root
+is omitted, Nvaph detects the project root from the current buffer.
+
+==============================================================================
+3. COMMANDS                                                   *nvaph-commands*
+
+:GraphView [ROOT]                 Open the project graph.
+
+==============================================================================
+4. GRAPH KEYS                                                 *nvaph-graph-keys*
+
+q, <Esc>                       Close the graph.
+<CR>                           Open the focused file.
+h, j, k, l                     Move spatially between files.
+r                              Recompute the layout.
+F                              Fit the graph to the window.
++, -                           Zoom in and out.
+/                              Search file titles and paths.
+<Tab>, <S-Tab>                 Cycle through files.
+?                              Show the key hint.
+
+==============================================================================
+5. CONFIGURATION                                           *nvaph-configuration*
+
+The default configuration is returned by |nvaph.config| and contains these
+main groups:
+
+  root                           Project root.
+  extensions                     Optional file extension filter; nil indexes all files.
+  ignore                         Ignored directory names.
+  cache.enabled                  Persistent JSON cache.
+  links                          Link parsing and creation behavior.
+  graph                          Layout, filters, rendering, and window sizing.
+  ui                             Graph window behavior.
+
+The graph is text-only. The default renderer uses braille edge rasterization
+and Unicode node glyphs. Strict ASCII output can be added as a renderer mode
+without changing the graph model.
+
+==============================================================================
+6. DEVELOPMENT                                             *nvaph-development*
+
+Run the test suite with:
+
+>sh
+    nvim --headless -u NONE -l tests/run.lua
+<
+The core modules are pure Lua. Neovim API calls are isolated in the plugin,
+actions, and graph view layers.
+
+vim:tw=78:ts=8:noet:ft=help:norl:
