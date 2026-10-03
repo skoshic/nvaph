@@ -149,7 +149,7 @@ require('cmp').setup({
 ```
 
 > [!NOTE]
-> This is AI assisted as I am primarily a Zig dev.
+> This is AI assisted as I am primarily not a lua dev.
 > I will still maintain it and feel free to contribute.
 
 ## License
